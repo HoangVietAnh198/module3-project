@@ -29,7 +29,7 @@ app.use(cookieParser("quizlet pro"));
 //   res.render("adminview");
 // });
 app.use("", userRoutes);
-
+console.log(12312312312312321313);
 app.listen(port, () => {
   console.log("Server is running on port http://127.0.0.1:3000");
 });
