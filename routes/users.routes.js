@@ -8,15 +8,17 @@ const userController = require("../controllers/users.controller");
 router.get("/", userController.getAll);
 
 // Get one by Id
-router.get("/:id", userController.getOne);
+router.get("/:id", userController.getById);
 
 // Create one by Id
-router.post("/", userController.create);
+router.post("/", userController.createUser);
 
 // Update one by Id
-router.put("/:id", userController.update);
+router.put("/:id", userController.updateUser);
 
 // Delete one by Id
-router.delete("/:id", userController.getDelete);
+router.delete("/:id", userController.deleteUser);
+
+router.get("/blog", userController.getAllBlog);
 
 module.exports = router;

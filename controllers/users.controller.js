@@ -1,38 +1,60 @@
 const db = require("../models/db");
 const bcrypt = require("bcrypt");
-
 const saltRounds = 10;
-const strongRegex = new RegExp(
+let strongRegex = new RegExp(
   "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
 );
-module.exports.getAll = (req, res) => {
-  // phân trang page size và curent index
-  let { page_size, page_index } = req.query;
-  console.log(page_size, page_index);
-  // check nếu bọn này không tồn tại thì trả về page size bản ghi đầu tiên
-  page_index = Number(page_index) || 1;
-  page_size = Number(page_size) || 3;
 
-  // nếu tồn tại thì trả về page size và current index...
-  db.execute(
-    `SELECT * FROM tbl_users LIMIT ${page_size} OFFSET ${
-      (page_index - 1) * page_size
-    }`,
-    [page_size, (page_index - 1) * page_size]
-  )
+module.exports.getAll = (req, res) => {
+  // phân trang
+  let { page_size, page_index } = req.query;
+  console.log(req.query);
+  page_index = Number(page_index) || 1;
+  page_size = Number(page_size) || 5;
+
+  let total = 0;
+  db.execute(`SELECT * FROM users`)
     .then((data) => {
       let [rows, cols] = data;
       console.log(rows);
       // array destructuring
       // let rows = data[0];
       // let cols = data[1];
+      total = rows.length;
+      return db.execute(
+        `SELECT * FROM users LIMIT ${page_size} OFFSET ${
+          (page_index - 1) * page_size
+        }`
+      );
+      // res.render("users", {
+      //   data: rows,
+      // });
+    })
+    .then((data) => {
+      let [rows, cols] = data;
+      console.log(total);
+      res.render("adminview", {
+        data: rows,
+        total,
+        page_size,
+        page_index,
+      });
     })
     .catch((err) => console.log(err));
 };
-
-module.exports.getOne = (req, res) => {
-  req.params.id;
-  db.execute("SELECT * FROM tbl_users WHERE id = ?", [id])
+module.exports.getAllBlog = (req, res) => {
+  db.execute(`SELECT * FROM tbl_blogs`)
+    .then((data) => {
+      let [rows, col] = data;
+      res.status(200).json({
+        data: rows,
+      });
+    })
+    .catch((err) => console.log(err));
+};
+module.exports.getById = (req, res) => {
+  let id = req.params.id;
+  db.execute("SELECT * FROM users WHERE id = ?", [id])
     .then((data) => {
       let [rows] = data;
 
@@ -43,28 +65,32 @@ module.exports.getOne = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-module.exports.create = (req, res) => {
+module.exports.createUser = (req, res) => {
   let { email, password } = req.body;
-
   if (!email || !password) {
     return res.status(500).json({
       message: "Invalid email or password",
     });
   }
+
   if (!strongRegex.test(password)) {
     return res.status(500).json({
       message: "Password is not strong enough",
     });
   }
+
+  // generate password and id
   password = bcrypt.hashSync(password, saltRounds);
   let id = Math.floor(Math.random() * 1000000);
-  db.execute("SELECT * FROM tbl_users WHERE email = ?", [email])
+
+  // execute SQL query
+  db.execute("SELECT * FROM users WHERE email = ?", [email])
     .then((data) => {
       let [rows] = data;
       // 1 mảng chứa 1 phần tử nếu tìm thấy user
       // [] nếu không tìm thấy
       if (rows.length > 0) {
-        res.status(404).json({ message: "User already exitst" });
+        return Promise.reject("User already exist");
       } else {
         return db.execute("INSERT INTO tbl_users VALUES(?, ?, ?, ?, ?, ?, ?)", [
           id,
@@ -78,19 +104,26 @@ module.exports.create = (req, res) => {
       }
     })
     .then((data) => {
-      console.log(data);
-      res.status(200).json({ message: "Create one successfully" });
+      return res.status(200).json({
+        message: "create one successfully",
+      });
+      // redirect (/login) thay vì trả về json message
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      return res.status(500).json({
+        err: err,
+      });
+    });
 };
 
-module.exports.update = (req, res) => {
+module.exports.updateUser = (req, res) => {
   let { id } = req.params;
   // let id = req.params.id;
-  let { name, username, phone, website, password } = req.body;
+  let { fullname, username, dateofbirth, image } = req.body;
+  console.log(req.body);
   db.execute(
-    "UPDATE tbl_users SET name = ?, username = ?, phone = ?, website = ?, password = ? WHERE id = ?",
-    [name, username, phone, website, password, id]
+    "UPDATE users SET fullname = ?, username = ?, dateofbirth = ?, image = ? WHERE id = ?",
+    [fullname, username, dateofbirth, image, id]
   )
     .then((data) => {
       console.log(data);
@@ -101,9 +134,9 @@ module.exports.update = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-module.exports.getDelete = (req, res) => {
+module.exports.deleteUser = (req, res) => {
   let { id } = req.params;
-  db.execute("DELETE FROM tbl_users WHERE id = ?", [id])
+  db.execute("DELETE FROM users WHERE id = ?", [id])
     .then((data) => {
       console.log(data);
       res.status(200).json({

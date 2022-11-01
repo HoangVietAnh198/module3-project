@@ -1,17 +1,13 @@
 const db = require("../models/db");
-const express = require("express");
-const app = express();
-const cookieParser = require("cookie-parser");
 const bcrypt = require("bcrypt");
-
-app.use(cookieParser());
-
 module.exports.renderRegister = (req, res) => {
   res.send("<h1>This is register page</h1>");
 };
+
 module.exports.renderLogin = (req, res) => {
-  res.send("<h1>This is login page</h1>");
+  res.render("login");
 };
+
 module.exports.login = (req, res) => {
   let { email, password } = req.body;
   if (!email || !password) {
@@ -19,35 +15,58 @@ module.exports.login = (req, res) => {
       message: "Invalid email or password",
     });
   }
-  db.execute("SELECT * FROM tbl_users WHERE email = ?", [email])
+
+  db.execute("SELECT * FROM users WHERE email = ?", [email])
     .then((data) => {
-      if (data[0].length === 0) {
+      let [rows] = data;
+      let find = rows[0];
+      if (!find) {
         res.status(404).json({
-          message: "user is not exist",
+          message: "User is not exist",
         });
       } else {
-        let passValid = bcrypt.compareSync(password, data[0][0].password);
-        if (passValid === true) {
-          console.log(data[0][0].id);
-          res.cookie("userId", data[0][0].id, { signed: true });
-          res.status(200).json({
-            status: "success",
-            message: "login ok",
-          });
-          // điều hướng người dùng sang trang "/"
-          // set heaers
-          // res.redirect // not working after set cookie (tìm kiếm để tìm lý do google)
-        } else {
+        // check password
+        let passValid = bcrypt.compareSync(password, find.password);
+        console.log(passValid);
+        console.log(find.password);
+
+        if (!passValid) {
           res.status(404).json({
             message: "Wrong password",
           });
+        } else {
+          res.cookie("userId", find.id, { signed: true });
+          res.status(200).json({
+            status: "success",
+            message: "Login successfully",
+          });
+          // điều hướng người dùng sang trang "/"
+
+          // set heaers
+          // res.redirect // not working after set cookie
+          // res.redirect not working after res.cookie (google)
         }
       }
     })
     .catch((err) => console.log(err));
 };
-// authentication (xác thực) :
-// Session ( phiên đăng nhập)
+
+module.exports.logout = (req, res) => {
+  // Clear cookie
+  res.clearCookie("userId", {
+    signed: true,
+  });
+  //  res.clearCookie()
+  res.status(200).json({
+    message: "Logout successfully",
+  });
+  // Logout successfully (JSON)
+  // Front-end take message and redirect
+};
+
+// Authentication (xac thuc)
+// Session (Phien dang nhap)
 // Cookie
-// Token (JWT- Json wed token, Bearer, ...)
-// Search : authentication with Session (ExpressJS)
+// Token (JWT - Json web token, Bearer, ...)
+
+// Authentication with Session [Cookie, JWT...] (ExpressJS)
