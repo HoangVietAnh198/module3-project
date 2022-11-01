@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>Home page</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+      <link rel="stylesheet" href="css/overview.css">
+   </head>
+   <body>
+      <div class="container">
+         <h2>Admin Table</h2>
+         <table class="table">
+            <thead>
+               <tr>
+                  <th>ID</th>
+                  <th>name</th>
+                  <th>username</th>
+                  <th>email</th>
+                  <th>phone</th>
+                  <th>website</th>
+                  <th>password</th>
+               </tr>
+            </thead>
+            <% rows.forEach ((e)=>{ %> 
+            <tbody  id="<%= e.id %>">
+               <tr>
+                  <td><%= e.id %> </td>
+                  <td><%= e.name %></td>
+                  <td><%= e.username %></td>
+                  <td><%= e.email %></td>
+                  <td><%= e.phone %></td>
+                  <td><%= e.website %></td>
+                  <td><%= e.password %></td>
+                  <td><button id="btn-delete" class="btn btn-primary">delete</button></td>
+                  <td><button id="btn-update" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">update</button></td>
+               </tr>
+             
+                
+                
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Update</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form action="" id="update-form">
+                           <input type="text" name="name" value="<%= e.name %>">
+                           <input type="text" name="username" value="<%= e.username %>">
+                           <input type="text" name="phone" value="<%= e.phone %>">
+                           <input type="text" name="website" value="<%= e.website %>">
+                          <input type="text" name="password" value="<%= e.password %>">
+                        </form>
+                      </div>
+                      <div class="modal-footer" id="<%= e.id %>">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="update-save">Save changes</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </tbody> 
+            <% }) %> 
+         </table>
+      </div>
+      <script src="js/adminview.js"></script>
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+   </body>
+</html>
+ 
