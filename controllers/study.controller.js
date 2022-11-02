@@ -4,8 +4,8 @@ module.exports.renderRegister = (req, res) => {
   res.send("<h1>This is register page</h1>");
 };
 
-module.exports.renderLogin = (req, res) => {
-  res.render("login");
+module.exports.renderQuestion = (req, res) => {
+  res.render("question");
 };
 
 module.exports.login = (req, res) => {

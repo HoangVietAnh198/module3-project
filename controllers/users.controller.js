@@ -145,3 +145,32 @@ module.exports.deleteUser = (req, res) => {
     })
     .catch((err) => console.log(err));
 };
+
+module.exports.createQuestions = (req, res) => {
+  let { title, description } = req.body;
+  let userId = req.params.id;
+  if (!title || !description) {
+    return res.status(500).json({
+      message: "Invalid title or content",
+    });
+  }
+  let id = Math.floor(Math.random() * 1000000);
+  db.execute(`INSERT INTO study_sets VALUES(?, ?, ?, ?, ?)`, [
+    id,
+    title,
+    description,
+    null,
+    userId,
+  ])
+    .then((data) => {
+      return res.status(200).json({
+        message: "create one successfully",
+      });
+      // redirect (/login) thay vì trả về json message
+    })
+    .catch((err) => {
+      return res.status(500).json({
+        err: err,
+      });
+    });
+};

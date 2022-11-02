@@ -7,10 +7,12 @@ const morgan = require("morgan");
 const port = 3000;
 const cookieParser = require("cookie-parser");
 const db = require("./models/db");
+
 const { notRequireAuth, requireAuth } = require("./middlewares/middlewares");
+const { createQuestions } = require("./controllers/users.controller");
 
 let userRoutes = require("./routes/users.routes");
-// let authRoutes = require("./routes/auth.routes");
+let studyRoutes = require("./routes/study.routes");
 // const clearRoutes = require("./routes/clear.routes");
 
 // set up view engines
@@ -25,11 +27,13 @@ app.use(morgan("dev"));
 app.use(express.static("public"));
 app.use(cookieParser("quizlet pro"));
 
-// app.get("/", (req, res) => {
-//   res.render("adminview");
-// });
-app.use("", userRoutes);
-console.log(12312312312312321313);
+app.get("/question", (req, res) => {
+  res.render("question");
+});
+app.use("/users", userRoutes);
+
+app.use("/study", studyRoutes);
+
 app.listen(port, () => {
   console.log("Server is running on port http://127.0.0.1:3000");
 });
