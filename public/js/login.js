@@ -3,7 +3,7 @@ let form = document.getElementById("form");
 let register = document.getElementById("register");
 
 register.addEventListener("click", () => {
-  window.location.href = "/register";
+  window.location.href = "/auth/register";
 });
 
 form.addEventListener("submit", function (e) {

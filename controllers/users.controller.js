@@ -67,7 +67,6 @@ module.exports.getById = (req, res) => {
 
 module.exports.createUser = (req, res) => {
   let { email, password, username } = req.body;
-  console.log(email);
   if (!email || !password) {
     return res.status(500).json({
       message: "Invalid email or password",
@@ -99,7 +98,7 @@ module.exports.createUser = (req, res) => {
           email,
           password,
           null,
-          null,
+          "user",
           username,
           null,
         ]);
