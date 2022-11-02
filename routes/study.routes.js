@@ -23,4 +23,14 @@ router.post(
   userController.createQuestions
 );
 
+router.get("/register", authController.renderRegister);
+
+router.post("/register", userController.createUser);
+
+router.get("/login", authController.renderLogin);
+
+router.post("/login", authController.login);
+
+router.get("/logout", authController.logout);
+
 module.exports = router;
