@@ -13,9 +13,6 @@ const {
 const cookieParser = require("cookie-parser");
 const db = require("./models/db");
 
-const { notRequireAuth, requireAuth } = require("./middlewares/middlewares");
-const { createQuestions } = require("./controllers/users.controller");
-
 // import route
 let userRoutes = require("./routes/users.routes");
 let studyRoutes = require("./routes/study.routes");
