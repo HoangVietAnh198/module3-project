@@ -5,6 +5,8 @@ const userController = require("../controllers/users.controller");
 // "/user"
 
 // Get all
+
+
 router.get("/", userController.getAll);
 
 // Get one by Id

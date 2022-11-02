@@ -66,7 +66,7 @@ module.exports.getById = (req, res) => {
 };
 
 module.exports.createUser = (req, res) => {
-  let { email, password } = req.body;
+  let { email, password, username } = req.body;
   if (!email || !password) {
     return res.status(500).json({
       message: "Invalid email or password",
@@ -92,14 +92,15 @@ module.exports.createUser = (req, res) => {
       if (rows.length > 0) {
         return Promise.reject("User already exist");
       } else {
-        return db.execute("INSERT INTO tbl_users VALUES(?, ?, ?, ?, ?, ?, ?)", [
+        return db.execute("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?,?)", [
           id,
           null,
-          null,
           email,
-          null,
-          null,
           password,
+          null,
+          "user",
+          username,
+          null,
         ]);
       }
     })
