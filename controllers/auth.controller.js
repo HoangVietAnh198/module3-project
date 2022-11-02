@@ -1,7 +1,7 @@
 const db = require("../models/db");
 const bcrypt = require("bcrypt");
 module.exports.renderRegister = (req, res) => {
-  res.render("register")
+  res.render("register");
 };
 
 module.exports.renderLogin = (req, res) => {
@@ -39,6 +39,7 @@ module.exports.login = (req, res) => {
             status: "success",
             message: "Login successfully",
           });
+
           // điều hướng người dùng sang trang "/"
 
           // set heaers
