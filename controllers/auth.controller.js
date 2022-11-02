@@ -1,7 +1,7 @@
 const db = require("../models/db");
 const bcrypt = require("bcrypt");
 module.exports.renderRegister = (req, res) => {
-  res.send("<h1>This is register page</h1>");
+  res.render("register")
 };
 
 module.exports.renderLogin = (req, res) => {
@@ -15,7 +15,6 @@ module.exports.login = (req, res) => {
       message: "Invalid email or password",
     });
   }
-
   db.execute("SELECT * FROM users WHERE email = ?", [email])
     .then((data) => {
       let [rows] = data;

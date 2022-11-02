@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>login</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="/css/login.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <img
+            src="https://png.pngtree.com/element_origin_min_pic/16/09/22/1057e33e1f83d10.jpg"
+            alt="photo "
+            class="img"
+          />
+        </div>
+        <div class="col-6">
+          <div class="container-title">
+            <span id="register-top"> Đăng ký </span>
+            <span id="title"> Đăng nhập </span>
+          </div>
+          <div class="container-login">
+            <i class="fa-brands fa-google"></i>
+            <span class="content"> <h3>Đăng nhập bằng Google</h3></span>
+          </div>
+          <div class="container-login">
+            <i class="fa-brands fa-facebook"></i>
+
+            <span class="content">
+              <h3>Đăng nhập bằng Facebook</h3>
+            </span>
+          </div>
+          <div class="container-login">
+            <i class="fa-brands fa-apple"></i>
+            <span class="content">
+              <h3>Đăng nhập bằng APPLE</h3>
+            </span>
+          </div>
+          <form id="form">
+            <input
+              type="email"
+              name="email"
+              placeholder="Nhập email hoặc tên người dùng của bạn"
+              id="email"
+            />
+            <p class="title-input">EMAIL</p>
+            <input
+              type="password"
+              name="password"
+              placeholder="Nhập mật khẩu"
+              id="password"
+            />
+            <div class="reset-pass">
+              <span class="title-inp"> PASSWORD </span>
+              <span id="reset">Bạn quên rồi à ?</span>
+            </div>
+            <p class="content-buttom">
+              Khi đăng nhập , bạn cần chấp nhận
+              <span class="condition">Điều khoản dịch vụ</span> và
+              <span class="condition">Chính sách quyền riêng tư</span> của QUIZ
+              SỐ HỌC
+            </p>
+            <button id="login">Đăng nhập</button>
+            <div class="logout-link">
+              <span> Hãy nhớ đăng xuất trên thiết bị dùng chung </span>
+              <span id="link"> Sử dụng liên kết nhanh </span>
+            </div>
+            <button id="register">
+              Mới sử dụng QUIZ SỐ HỌC?
+              <span id="createAccount">Tạo tài khoản</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="/js/login.js"></script>
+  </body>
+</html>
