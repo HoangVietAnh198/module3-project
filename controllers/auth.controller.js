@@ -7,6 +7,10 @@ module.exports.renderRegister = (req, res) => {
 module.exports.renderLogin = (req, res) => {
   res.render("login");
 };
+module.exports.renderHomePage = (req, res) => {
+  let { userId } = req.signedCookies;
+  res.render("homePage", { userId });
+};
 
 module.exports.login = (req, res) => {
   let { email, password } = req.body;
@@ -35,6 +39,7 @@ module.exports.login = (req, res) => {
           });
         } else {
           res.cookie("userId", find.id, { signed: true });
+          res.cookie("role", find.role, { signed: true });
           res.status(200).json({
             status: "success",
             message: "Login successfully",

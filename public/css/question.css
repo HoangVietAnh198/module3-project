@@ -4,6 +4,7 @@
     box-sizing: border-box
 }
 body{
+    font-family: 'Secular One', sans-serif;
     background-color: #0A092D;
     color: #fff;
 }
@@ -159,7 +160,6 @@ h5{
 }
 .input-img{
     margin-left: 380px;
-    padding: 20px;
     border: dotted;
 }
 #upload-image{
@@ -169,6 +169,11 @@ h5{
     display:none
 }
 #button-add{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    text-align: center;
+    height: 120px;
     padding: 10px;
     color: white;
     background-color: #2e3956;
@@ -178,7 +183,7 @@ h5{
 #button-add:hover{
     color: yellow;
     border-bottom: 7px solid yellow;
-    
+    cursor: pointer;
 }
 #create{
     padding: 15px;
@@ -193,4 +198,14 @@ h5{
 #create:hover{
     background-color: rgb(28, 140, 231);
     width: 100px;
+}
+.dropdown-menu-user {
+    left: -250% !important;
+}
+.btn-submit{
+    padding: 15px;
+    border: none;
+    background-color: #2e3956;
+    color: aliceblue;
+    font-size: 20px;
 }

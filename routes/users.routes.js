@@ -1,26 +1,22 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/users.controller");
-
-// "/user"
+const { requireAdmin } = require("../middlewares/middlewares");
 
 // Get all
 
+router.get("", requireAdmin, userController.getAll);
 
-router.get("/", userController.getAll);
+router.get("/profile/:id", userController.renderProfile);
 
+router.put("/profile/:id", userController.updateProfile);
+
+router.get("/solution", userController.renderSolution);
+router.get("/expert", userController.renderExpert);
 // Get one by Id
-router.get("/:id", userController.getById);
-
-// Create one by Id
-router.post("/", userController.createUser);
-
-// Update one by Id
 router.put("/:id", userController.updateUser);
-
-// Delete one by Id
+router.post("/", userController.createUser);
 router.delete("/:id", userController.deleteUser);
-
-router.get("/blog", userController.getAllBlog);
+router.get("/:id", userController.getById);
 
 module.exports = router;

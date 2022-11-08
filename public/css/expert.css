@@ -4,8 +4,8 @@
     box-sizing: border-box
 }
 body{
-    font-family: 'Secular One', sans-serif;
     background-color: #0A092D;
+    font-family: 'Secular One', sans-serif;
 }
 #img {
     width: 100px;
@@ -64,36 +64,67 @@ body{
     width: 80px;
     text-align: center;
   }
-.dropdown-menu-user {
+  .dropdown-menu-user {
     left: -125% !important;
 }
-.btn-create{
-    padding: 5px;
-    width: 100px;
-}
-.btn-user{
-    padding: 5px;
-    width: 70px;
-    background-color: white;
-    color: #2E3856;
-    border: none;
-}
-.col-2{
-    margin: 22px;
+.one{
+    margin-top: 20px;
+    display: flex;
     color: white;
-  }
-  .col-2 h4{
+}
+.img-experts{
+    height: 60%;
+    margin-right: 20px;
+    border-radius: 10px;
+}
+.title-top{
+    margin-top: 30px;
+}
+.top{
+    margin-top: 50px;
+    color: white;
+}
+.two{
+    margin-top: -6%;
+    color: white;
+}
+.three{
+    padding: 20px;
+    border: 1px solid #2E3856;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background-color: #2E3856;
+    color: white;
+}
+.textbook{
+    display: inline;
+}
+.verified{
+    display: inline;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid #C7F7E6;
+    border-radius: 20px;
+    background-color: #C7F7E6;
+    color: black;
+}
+.toobar-top{
+    position: fixed;
+   width: 100%;
+}
+.content{
+    margin-top: 30px;
     margin-bottom: 30px;
-  }
-  .col-2 h6{
-    margin-bottom: 30px;
-  }
-  .img-logo{
-    text-align: right;
-  }
-  .col-2 h4:hover{
-    color: gray;
-  }
-  .col-2 h6:hover{
-    color: gray;
-  }
+    color: #939B96;
+    font-size: 15px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid #939B96;
+}
+.contentItem{
+    padding: 30px;
+    color: white;
+    font-size: 20px;
+}
+.three:hover{
+    border-left: 5px solid #7583FF;
+}

@@ -1,72 +1,68 @@
 const db = require("../models/db");
-const bcrypt = require("bcrypt");
+const _ = require("lodash");
+
 module.exports.renderRegister = (req, res) => {
   res.render("register");
 };
-
 module.exports.renderQuestion = (req, res) => {
-  res.render("question");
+  let { id } = req.params.id;
+  let { set_id } = req.query;
+  if (!set_id) {
+    res.render("question", {
+      dataSet: "",
+      questionRenderData: "",
+    });
+  } else {
+    db.execute("SELECT * FROM study_sets WHERE set_id = ?", [set_id])
+      .then((data) => {
+        let [rows] = data;
+        let data_set_id = rows[0];
+        console.log(data_set_id);
+        db.execute("SELECT * FROM questions WHERE set_id = ?", [set_id]).then(
+          (dataset) => {
+            let [rows_set] = dataset;
+            let questionRender = rows_set;
+            res.render("question", {
+              dataSet: data_set_id,
+              questionRenderData: questionRender,
+            });
+          }
+        );
+      })
+      .catch((err) => {
+        res.status(500).json({
+          status: "err",
+          message: err,
+        });
+      });
+  }
 };
-
-module.exports.login = (req, res) => {
-  let { email, password } = req.body;
-  if (!email || !password) {
+module.exports.createStudySets = (req, res) => {
+  let { title, description, studySetId } = req.body;
+  let userId = req.params.id;
+  console.log(userId);
+  if (!title || !description) {
     return res.status(500).json({
-      message: "Invalid email or password",
+      message: "Invalid title or content",
     });
   }
-  db.execute("SELECT * FROM users WHERE email = ?", [email])
+  // let id = Math.floor(Math.random() * 1000000);
+  db.execute(`INSERT INTO study_sets VALUES(?, ?, ?, ?, ?)`, [
+    studySetId,
+    title,
+    description,
+    null,
+    userId,
+  ])
     .then((data) => {
-      let [rows] = data;
-      let find = rows[0];
-      if (!find) {
-        res.status(404).json({
-          message: "User is not exist",
-        });
-      } else {
-        // check password
-        let passValid = bcrypt.compareSync(password, find.password);
-        console.log(passValid);
-        console.log(find.password);
-
-        if (!passValid) {
-          res.status(404).json({
-            message: "Wrong password",
-          });
-        } else {
-          res.cookie("userId", find.id, { signed: true });
-          res.status(200).json({
-            status: "success",
-            message: "Login successfully",
-          });
-
-          // điều hướng người dùng sang trang "/"
-
-          // set heaers
-          // res.redirect // not working after set cookie
-          // res.redirect not working after res.cookie (google)
-        }
-      }
+      return res.status(200).json({
+        message: "create one successfully",
+      });
+      // redirect (/login) thay vì trả về json message
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      return res.status(500).json({
+        err: err,
+      });
+    });
 };
-
-module.exports.logout = (req, res) => {
-  // Clear cookie
-  res.clearCookie("userId", {
-    signed: true,
-  });
-  //  res.clearCookie()
-  res.status(200).json({
-    message: "Logout successfully",
-  });
-  // Logout successfully (JSON)
-  // Front-end take message and redirect
-};
-
-// Authentication (xac thuc)
-// Session (Phien dang nhap)
-// Cookie
-// Token (JWT - Json web token, Bearer, ...)
-
-// Authentication with Session [Cookie, JWT...] (ExpressJS)

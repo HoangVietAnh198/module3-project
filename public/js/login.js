@@ -3,16 +3,24 @@ let form = document.getElementById("form");
 let register = document.getElementById("register");
 
 register.addEventListener("click", () => {
-  window.location.href = "/auth/register";
+  window.location.href = "/register";
 });
 
 form.addEventListener("submit", function (e) {
   e.preventDefault();
   let email1 = form.email.value;
   let password1 = form.password.value;
-  console.log(email1, password1);
+  if (!email1 || !password1) {
+    swal({
+      title: "Email or password is blank",
+      text: "Please enter full information!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {});
+  }
 
-  fetch(api + "auth/login", {
+  fetch(api + "/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

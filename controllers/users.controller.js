@@ -4,6 +4,28 @@ const saltRounds = 10;
 let strongRegex = new RegExp(
   "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})"
 );
+module.exports.renderSolution = (req, res) => {
+  res.render("solution");
+};
+module.exports.renderExpert = (req, res) => {
+  res.render("expert");
+};
+module.exports.renderProfile = (req, res) => {
+  let id = req.params.id;
+  db.execute("SELECT * FROM users WHERE id = ?", [id])
+    .then((data) => {
+      let [rows] = data;
+      let dataId = rows[0];
+      db.execute("SELECT * FROM study_sets WHERE user_id = ?", [id]).then(
+        (dataUser) => {
+          let [bac] = dataUser;
+          console.log(bac);
+          res.render("profile", { data: dataId, questions: bac });
+        }
+      );
+    })
+    .catch((err) => console.log(err));
+};
 
 module.exports.getAll = (req, res) => {
   // phân trang
@@ -42,22 +64,13 @@ module.exports.getAll = (req, res) => {
     })
     .catch((err) => console.log(err));
 };
-module.exports.getAllBlog = (req, res) => {
-  db.execute(`SELECT * FROM tbl_blogs`)
-    .then((data) => {
-      let [rows, col] = data;
-      res.status(200).json({
-        data: rows,
-      });
-    })
-    .catch((err) => console.log(err));
-};
 module.exports.getById = (req, res) => {
   let id = req.params.id;
   db.execute("SELECT * FROM users WHERE id = ?", [id])
     .then((data) => {
       let [rows] = data;
 
+      console.log(rows[0]);
       res.status(200).json({
         data: rows[0],
       });
@@ -116,10 +129,27 @@ module.exports.createUser = (req, res) => {
       });
     });
 };
+module.exports.updateProfile = (req, res) => {
+  let { id } = req.params;
+  console.log(id);
+  let { fullname, email, urlImage, userName, birth } = req.body;
+  console.log(req.body);
+  db.execute(
+    "UPDATE users SET fullname = ?,email = ?, image = ?, username = ?, dateofbirth = ? WHERE id = ?",
+    [fullname, email, urlImage, userName, birth, id]
+  )
+    .then((data) => {
+      console.log(data);
+      res.status(200).json({
+        message: "update one successfully",
+      });
+    })
+    .catch((err) => console.log(err));
+};
 
 module.exports.updateUser = (req, res) => {
   let { id } = req.params;
-  // let id = req.params.id;
+
   let { fullname, username, dateofbirth, image } = req.body;
   console.log(req.body);
   db.execute(
@@ -145,33 +175,4 @@ module.exports.deleteUser = (req, res) => {
       });
     })
     .catch((err) => console.log(err));
-};
-
-module.exports.createQuestions = (req, res) => {
-  let { title, description } = req.body;
-  let userId = req.params.id;
-  if (!title || !description) {
-    return res.status(500).json({
-      message: "Invalid title or content",
-    });
-  }
-  let id = Math.floor(Math.random() * 1000000);
-  db.execute(`INSERT INTO study_sets VALUES(?, ?, ?, ?, ?)`, [
-    id,
-    title,
-    description,
-    null,
-    userId,
-  ])
-    .then((data) => {
-      return res.status(200).json({
-        message: "create one successfully",
-      });
-      // redirect (/login) thay vì trả về json message
-    })
-    .catch((err) => {
-      return res.status(500).json({
-        err: err,
-      });
-    });
 };

@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Secular+One&display=swap" rel="stylesheet">
+    <title>User</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -31,8 +32,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" href="/css/homePage.css" />
-    <title>Home Quiz</title>
+    <link rel="stylesheet" href="/css/profile.css" />
   </head>
   <body>
     <nav class="navbar navbar-expand-lg bg-light">
@@ -65,7 +65,7 @@
               <a class="nav-link active" aria-current="page" href="http://127.0.0.1:3000/users/solution">Expert solutions</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Your labrary</a>
+              <a class="nav-link" href="#">Your library</a>
             </li>
             <li class="nav-item dropdown">
               <a
@@ -75,12 +75,12 @@
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Create
+                Craete
               </a>
               <ul class="dropdown-menu">
                 <li>
-                  <a class="dropdown-item" href="http://127.0.0.1:3000/study/question/<%= userId %> ">
-                    <i class="fa-sharp fa-solid fa-copy"></i> Study sets</a
+                  <a class="dropdown-item" href="http://127.0.0.1:3000/study/question/<%= data.id %>  ">
+                    <i class="fa-sharp fa-solid fa-copy"></i> Study set</a
                   >
                 </li>
                 <li>
@@ -97,12 +97,12 @@
               </ul>
             </li>
           </ul>
-          <span class="vip">Upgrade: free 7-day trila</span>
+          <span class="vip">Upgrade: free 7-day trial</span>
           <form class="d-flex" role="search">
             <input
               class="form-control me-2"
               type="search"
-              placeholder="Study sets, textboo...."
+              placeholder="Study sets, textboo..."
               aria-label="Search"
             />
             <button class="btn btn-outline-success" type="submit">
@@ -114,7 +114,6 @@
       <button id="notification">
         <i class="fa-solid fa-bell"></i>
       </button>
-      <!-- Button trigger modal -->
       <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -124,7 +123,7 @@
                   <i class="fa-sharp fa-solid fa-user"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-user">
-                  <li><a class="dropdown-item" href="http://127.0.0.1:3000/users/profile/<%= userId %> ">Profile</a></li>
+                  <li><a class="dropdown-item" href="#">Profile</a></li>
                   <li><a class="dropdown-item" href="#">Progress</a></li>
                   <li><a class="dropdown-item" href="#">Settings</a></li>
                   <li><hr class="dropdown-divider"></li>
@@ -139,157 +138,110 @@
           </div>
         </div>
       </nav>
-
       <!-- Modal -->
     </nav>
-    <div class="container">
-      <h2 class="title">Recent</h2>
+    <div class="container" id="bsaa">
       <div class="row">
-        <div class="col-3">
-          <div>
-            <h3>Chemistry</h3>
-            <p>Precalculus</p>
-            <h2>Carter, Cuevas, Day, Malloy</h2>
-          </div>
-          <div class="div-img">
-            <img
-              src="https://d2nchlq0f2u6vy.cloudfront.net/cache/93/e0/93e0bb4901e3a1e6d9d963928d1d1bc9.jpg"
-              alt="photo"
-              class="img"
-            />
+        <div class="col-12">
+          <img
+            src="<%= data.image %> "
+            alt="photo"
+            class="img-user"
+          />
+          <div class="title-name">
+            <h2><%= data.username %> </h2>
+            <h5><%= data.fullname %> </h5>
+            <h5>birthday : <%= data.dateofbirth %> </h5>
           </div>
         </div>
-        <div class="col-3">
-          <div>
-            <h3>Chemistry 2</h3>
-            <p>Realldades 2</p>
-            <h2>Carter, Cuevas, Day, Malloy</h2>
-          </div>
-          <div class="div-img">
-            <img
-              src="https://d2nchlq0f2u6vy.cloudfront.net/cache/f0/5b/f05b21063194c1b8a8c430c213bdce16.jpg"
-              alt="photo"
-              class="img"
-            />
-          </div>
-        </div>
-      </div>
-      <h2 class="title">Recommended expert solutions</h2>
-      <div class="row">
-        <div class="col-3" id="precalculus">
-          <div>
-            <h3>Precalculus</h3>
-            <p>Precalculus 2</p>
-            <h2>Carter, Cuevas, Day, Malloy</h2>
-          </div>
-          <div class="div-img">
-            <img
-              src="https://d2nchlq0f2u6vy.cloudfront.net/cache/c8/a5/c8a5311396364c06fa04595bbe2902f9.jpg"
-              alt="photo"
-              class="img"
-            />
-          </div>
-        </div>
-        <div class="col-3">
-          <div>
-            <h3>Realldades: Practlce Workbook 2</h3>
-            <p>Precalculus</p>
-            <h2>Carter, Cuevas, Day, Malloy</h2>
-          </div>
-          <div class="div-img">
-            <img
-              src="https://d2nchlq0f2u6vy.cloudfront.net/cache/2c/1e/2c1ebd8444499a8944f1c1c221b4201d.jpg"
-              alt="photo"
-              class="img"
-            />
-          </div>
-        </div>
-        <div class="col-3">
-          <div>
-            <h3>Blg Ideas Math Geometry: A Comm...</h3>
-            <p>Precalculus</p>
-            <h2>Carter, Cuevas, Day, Malloy</h2>
-          </div>
-          <div class="div-img">
-            <img
-              src="https://d2nchlq0f2u6vy.cloudfront.net/cache/ed/fb/edfba486f9985ffe5b1b850ec44e2ea5.jpg"
-              alt="photo"
-              class="img"
-            />
-          </div>
-        </div>
-    </div>
-    <div class="container toobar">
-      <div class="row">
-        <div class="col-2">
-          <h4 class="title-h4">
-            About us
-          </h4>
-          <h6>
-            About Quizlet
-          </h6>
-          <h6>
-            How Quizlet works
-          </h6>
-          <h6>
-            Careers
-          </h6>
-          <h6>
-            Adventise with us
-          </h6>
-          <h6>
-            News
-          </h6>
-          <h6>
-            Get the app
-          </h6>
-        </div>
-        <div class="col-2">
-          <h4 class="title-h4">For students</h4>
-          <h6>Flashcards</h6>
-          <h6>Learn</h6>
-          <h6>Solutions</h6>
-          
-        </div>
-        <div class="col-2">
-          <h4 class="title-h4">
-            For teachers
-          </h4>
-          <h6>Live</h6>
-          <h6>Checkpoint</h6>
-          <h6>Blog</h6>
-          <h6>Be the Change</h6>
-        </div>
-        <div class="col-2">
-          <h4 class="title-h4">
-            Resources
-          </h4>
-          <h6>
-            Help center
-          </h6>
-          <h6>
-            Honor code
-          </h6>
-          <h6>
-            Comunity guidelines
-          </h6>
-          <h6>Privacy</h6>
-          <h6>Terms</h6>
-          <h6>Ad and Cookie Policy</h6>
-        </div>
-        <div class="col-2">
-          <h4 class="title-h4">
-            Language
-          </h4>
-          <h6>
-            English(USA)
-          </h6>
-          <img src="https://assets.quizlet.com/a/j/dist/app/i/global/footer/coppa-seal.cdf1828279fe2a1.png" alt="photo" class="img-logo">
-        </div>
-      </div>
+        <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  Update profile
+</button>
 
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Update profile</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <span>Full name</span>
+       <input type="text" class="row lol" value="<%= data.fullname %> ">
+       <span>Email</span>
+       <input type="text" class="row lol" value="<%= data.email %> ">
+       <span>URL image</span>
+       <input type="text" class="row lol" value="<%= data.image %> ">
+       <span>User name</span>
+       <input type="text" class="row lol" value="<%= data.username %> ">
+       <span>Date of Birth</span>
+       <input type="text" class="row lol" value="<%= data.dateofbirth %> ">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close">Close</button>
+        <button type="button" class="btn btn-primary" id="btn-update">Update</button>
+      </div>
     </div>
-    <script src="/js/homePage.js"></script>
+  </div>
+</div>
+        <div class="col-12 toolbar">
+          <a href="#" id="achievement">Achievements</a>
+          <a href="#" id="study">Study sets</a>
+          <a href="#" id="solution">Expert solution</a>
+          <a href="#" id="foldera">Folders</a>
+          <a href="#" id="classes">Classes</a>
+        </div>
+        <div class="col-12 containerSearch">
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle-buttom"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Recent
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" href="#"> Created</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"> Recent</a>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item" href="#"> Studied</a>
+              </li>
+            </ul>
+          </li>
+          <input type="search" placeholder="Search your sets" id="search" />
+        </div>
+      <!-- <div id="study-set-list"> -->
+       
+        <% for( let i = 0; i < questions.length; i++ ) { %>
+          <div class="col-12 containerUpdate" id="study-set-<%= questions[i].set_id %> ">
+            <div>
+              <span class="title-upload">2 Terms</span>
+              <img
+                src="<%= data.image %>"
+                alt="photo"
+                class="img-user-upload"
+              />
+              <span class="nameUser"><%= data.username %> </span>
+              
+            </div>
+            <h2><%= questions[i].title %> </h2>
+          </div>
+        <% } %>
+        
+      <!-- </div> -->
+      </div>
+    </div>
+    <script src="/js/profile.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

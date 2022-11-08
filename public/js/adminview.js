@@ -20,7 +20,7 @@ const showMessage = (status, message) => {
 tbody.addEventListener("click", (e) => {
   if (e.target.classList.contains("btn-delete")) {
     let id = e.target.id;
-    fetch(baseApi + `${id}`, {
+    fetch(baseApi + `users/${id}`, {
       method: "DELETE",
     })
       .then((res) => {
@@ -113,7 +113,7 @@ tbody.addEventListener("click", (e) => {
     console.log(info.website, info.phone);
 
     // Tiến hành gọi fetch update
-    fetch(baseApi + `${id}`, {
+    fetch(baseApi + `users/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -166,17 +166,6 @@ tbody.addEventListener("click", (e) => {
 //     .catch((err) => console.log(err));
 // });
 
-logout.addEventListener("click", (e) => {
-  e.preventDefault();
-
-  fetch(baseApi + `clear/logout`)
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-    })
-    .catch((err) => console.log(err));
-});
-
 ul.addEventListener("click", (e) => {
   console.log(e.target);
 });
@@ -202,13 +191,13 @@ window.onload = function () {
   pre.addEventListener("click", () => {
     activePage = activePage - 1;
     if (activePage === 0) activePage = 1;
-    window.location.href = `/?page_size=5&page_index=${activePage}`;
+    window.location.href = `?page_size=5&page_index=${activePage}`;
   });
 
   next.addEventListener("click", () => {
     activePage = Number(activePage) + 1;
     console.log(activePage, last);
     if (activePage > last) activePage = last;
-    window.location.href = `/?page_size=5&page_index=${activePage}`;
+    window.location.href = `?page_size=5&page_index=${activePage}`;
   });
 };

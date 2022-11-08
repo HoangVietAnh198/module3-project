@@ -3,9 +3,23 @@
     margin: 0;
     box-sizing: border-box;
 }
+body{
+    font-family: 'Secular One', sans-serif;
+    color: #fff;
+    background-image: url("https://images.pexels.com/photos/1612351/pexels-photo-1612351.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+}
+button{
+    background-color: rgba(255, 255, 255, 0);
+}
+.row{
+    margin-top: 30px;
+    padding: 5px;
+    box-shadow: grey;
+}
 .container{
-    border: 1px solid gray;
+    margin-top: 50px;
     padding: 20px;
+    background-color: rgba(255, 255, 255, 0.224);
 }
 .UIFieldset-fields{
 display: flex;
@@ -43,7 +57,7 @@ margin: 20px;
 }
 .col-6 #buttom-register{
 width: 95%;
-margin-left: 15px;
+margin-left: 22px;
 margin-bottom: 20px;
 padding: 10px;
 background-color: #D9DDE8;
@@ -58,10 +72,10 @@ color: #3CCFCF;
 .bpceo8d{
 border: 1px solid #D9DDE8;
 padding: 10px;
-width: 97%;
+width: 95%;
 text-align: center;
 border-radius: 5px;
-margin-left: 10px;
+margin-left: 23px;
 
 }
 .UILink{
@@ -79,14 +93,11 @@ margin: 20px;
 #register{
 font-size: 30px;
 border: none;
-background-color: white;
 margin-right: 20px;
-border-bottom: 5px solid yellow;
 }
 #login{
 font-size: 30px;
 border: none;
-background-color: white;
 color: #D9DDE8;
 }
 .title{
@@ -111,4 +122,14 @@ font-size: 15px;
 .img{
 width: 100%;
 height: 100%;
+}
+
+.btn-registes:hover{
+    cursor: pointer;
+    background-color: #a7b1cf !important;
+}
+.validate{
+    color: red;
+    font-size: 12px;
+    display: none;
 }
